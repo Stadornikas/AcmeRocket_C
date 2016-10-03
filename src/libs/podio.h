@@ -1,8 +1,10 @@
 /**
  * Tipo Podio
  */
+#define MAX 200
+
 typedef struct podio {
-	char nomeEquipe[64];   //tipo do elemento do podio
-	int distanciaAlvo;
-	int tempoPropulsao;
-} Podio;
+	char nomeEquipe[MAX];
+	float distanciaAlvo;
+	float tempoPropulsao;
+} podio;

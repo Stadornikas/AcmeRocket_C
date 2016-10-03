@@ -1,7 +1,6 @@
-main.d: ../main.c ../libs/lancamento.h ../libs/pilhaPodio.h \
- ../libs/podio.h
+main.d: ../main.c ../libs/equipes.h ../libs/pilhaPodio.h ../libs/podio.h
 
-../libs/lancamento.h:
+../libs/equipes.h:
 
 ../libs/pilhaPodio.h:
 

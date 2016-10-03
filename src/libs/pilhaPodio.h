@@ -7,15 +7,15 @@
 #include "podio.h"
 
 /* declaracao do no */
-struct no
+struct sucesso
 {
 	struct podio dado;   //tipo do elemento da pilha
-	struct no *prox;
+	struct sucesso *prox;
 };
 
 
 /*Defini��o do tipo de dado pilha */
-typedef struct no* pilhaPodio;
+typedef struct sucesso* pilhaPodio;
 
 
 //Fun��o que inicia a pilha
@@ -34,7 +34,7 @@ int IsEmpty(pilhaPodio topo){
 void PUSH (pilhaPodio *topo, struct podio elem)
 {
 pilhaPodio novo;
-novo = (pilhaPodio) malloc (sizeof(struct no));
+novo = (pilhaPodio) malloc (sizeof(struct sucesso));
 if (novo != NULL)
 {
 	novo->dado=elem;
@@ -89,16 +89,5 @@ int SHOW(pilhaPodio topo, int cont){
 	return 0;
 }
 
-
-//lE O VALOR DO PRIMERIO ELEMENTO DA PILHA
-/*
-char TOP(pilhaPodio *topo){
-	if(!IsEmpty(*topo)){
-		return *topo->dado;
-	}else{
-		printf("A pilha nao foi inicializada \n");
-	}
-}
-*/
 
 
