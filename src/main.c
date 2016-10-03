@@ -26,14 +26,15 @@ int main()
 	printf("\n====================================================================");
 	printf("\n");
 	printf("\n");
-	printf("\nDigite a quantidade de equipes que deseja cadastrar na competição: ");
+	//printf("\nDigite a quantidade de equipes que deseja cadastrar na competição: ");
+	printf("\nDigite a quantidade de equipes que deseja cadastrar na competicao: ");
 	fflush(stdin);
 	scanf("%d", &qtdEquipes);
 
 
 	equipes lancamento[qtdEquipes];
-
-	for(int i = 0 ; i < qtdEquipes; i++){
+	int i;
+	for(i = 0 ; i < qtdEquipes; i++){
 
 		lancamento[i].tentativas = 0;
 		lancamento[i].situacao = 0;
@@ -43,7 +44,6 @@ int main()
     	printf("\nDigite nome da equipe %d: ",x+1);
     	fflush(stdin);
     	fgets(lancamento[i].nomeEquipe,MAX,stdin);
-    	getchar();
 
 
     };
@@ -51,19 +51,24 @@ int main()
 	numEquipes = sizeof(lancamento);
 
 	do{
-
-	 for(int i = 0 ; i < numEquipes; i++){
+		
+	int i;
+	 for(i = 0 ; i < numEquipes; i++){
 
 		 x = lancamento[i].tentativas;
 
-		printf("\n %d° Tentativa de lançamento da equipe %s: ",x+1,lancamento[i].nomeEquipe);
+		//printf("\n %d° Tentativa de lançamento da equipe %s: ",x+1,lancamento[i].nomeEquipe);
+		printf("\n %d Tentativa de lanamento da equipe %s: ",x+1,lancamento[i].nomeEquipe);
 
 		if(lancamento[i].situacao == 0){
 			do{
-				printf("\nInforme a situação do %d° lançamento da equipe %s: (s = Sucesso ou f = Falha) ",x+1,lancamento[i].nomeEquipe);
-				fflush(stdin);
+				//printf("\nInforme a situação do %d° lançamento da equipe %s: (s = Sucesso ou f = Falha) ",x+1,lancamento[i].nomeEquipe);
+				printf("\nInforme a situacao do %d lancamento da equipe %s: (s = Sucesso ou f = Falha) ",x+1,lancamento[i].nomeEquipe);
+				//fflush(stdin);
 				scanf("%c", &situacao);
-				getchar();
+				//getchar();
+				
+				printf(" situacao: %c",situacao);
 
 				switch(situacao){
 					case 's':
@@ -72,12 +77,11 @@ int main()
 						printf("\nDigite a distancia do alvo: ");
 						fflush(stdin);
 						scanf("%f", &lancamento[i].distanciaAlvo);
-						getchar();
 
-						printf("\nDigite o tempo de propulsão: ");
+						//printf("\nDigite o tempo de propulsão: ");
+						printf("\nDigite o tempo de propulsao: ");
 						fflush(stdin);
 						scanf("%f", &lancamento[i].tempoPropulsao);
-						getchar();
 
 						lancamento[i].tentativas++;
 						maxTentativas++;
@@ -93,6 +97,7 @@ int main()
 				}
 
 			}while(situacao != 's' || situacao != 'f');
+			lancamento[i].situacao = 2;
 		}
 
 	 }
@@ -102,7 +107,9 @@ int main()
 	campeao == NULL;
 
 	while(colocacao <= 3){
-		for(int j = 0; j < numEquipes; j++){
+		
+		int j;
+		for(j = 0; j < numEquipes; j++){
 			if(lancamento[j].situacao == 1){
 
 				if(lancamento[j].distanciaAlvo < menorDistancia ){
@@ -129,7 +136,8 @@ int main()
 	}
 
     printf("\n======================================================");
-    printf("\n=============  Resultados da competição  =============");
+    //printf("\n=============  Resultados da competição  =============");
+    printf("\n=============  Resultados da competicao  =============");
     printf("\n======================================================");
 
 	while (!IsEmpty(pilha)){
@@ -145,7 +153,6 @@ int main()
 
 
 	printf("\n\nPressione um tecla para sair \n");
-	getchar();
 
 system("pause");
 return EXIT_SUCCESS;
