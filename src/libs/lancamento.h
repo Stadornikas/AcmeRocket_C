@@ -8,10 +8,10 @@
 /* declaracao dos registros */
 typedef struct lancamento {
 	char nomeEquipe[MAX];
-	int tentativas;
+	int tentativas = 0;
 	float distanciaAlvo;
 	float tempoPropulsao;
-	int situacao;
+	int situacao = 0;
 	struct lancamento *prox;
 } lancamento;
 

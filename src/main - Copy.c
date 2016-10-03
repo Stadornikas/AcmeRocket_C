@@ -7,17 +7,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "libs/lancamento.h"
+//#include "libs/equipes.h"
 #include "libs/pilhaPodio.h"
-#define TAM 50
+
 
 int main() {
 	
     pilhaPodio pilha;
     podio podio;
-    listaLancamento lancamento, aux;
-    lancamento = NULL;
-    lancamento = (listaLancamento) malloc((sizeof(struct noLsita)));
     INIT(&pilha);
     int qtdEquipes = 0, maxTentativas = 2, numEquipes = 0, colocacao = 1, campeao;
     float menorDistancia = 9999999.9;
@@ -25,12 +22,11 @@ int main() {
     int x;
     
     /*Variaves de operacao*/
-    char exit[]	 			= "sair";
-    char rank[] 			= "rank";
-    char inscrever[]		= "inscrever";
-    char poslancamento[]	= "poslancamento";
-    char op[TAM];
-	while(strcmp(exit, op) != 0){
+    char exit[]	 		= "sair";
+    char rank[] 		= "rank";
+    char inscrever[]	= "inscrever";
+    char op;
+	do{
 		
 		printf("\n====================================================================");
 		printf("\n=============== BEM VINDO AO SISTEMA ACME ROCKET ===================");
@@ -41,38 +37,13 @@ int main() {
 		printf("Digite inscrever para inscrever uma equipe e seus lancamentos no  programa\n");
 		printf("Digite rank para vizualizar o podio\n");
 		printf("Digite sair para finalizar o programa\n");
-		printf("Digite poslancamento para inserir as informacoes pos lancamento");
 		printf("Qual operacao gostaria de iniciar?\n");
 		fflush(stdin);
-		gets(op);
-		 
-		 if(strcmp(op, exit) == 0){
-		 	system("pause");
-			return EXIT_SUCCESS;
-		 }
-		 else if(strcmp(op, rank) == 0){
-		 	printf("\nMostrar Rank ou Podio");
-		 }
-		 else if(strcmp(op, poslancamento) == 0){
-		 	printf("\nInserir informacoes pos lancamento");
-		 }
-		 else if(strcmp(op, inscrever) == 0){
-		 	if(lancamento == NULL){
-		 		printf("Nao foi possivel alocar o espaco requisitado");
-			 }
-			 else{
-			 	aux = NULL;
-			 	aux = (lancamento) malloc(size (struct noLista) ));
-			 	aux = lancamento;
-			 	printf("\nDigite o nome da equipe que deseja cadastrar na competicao: ");
-		 		fflush(stdin);
-		 		gets(aux->nomeEquipe);
-		 		aux->prox = NULL;
-		 		lancamento->prox = aux;
-			 }
-		 }
+		fgets(op, MAX, stdin);
 		//printf("\nDigite a quantidade de equipes que deseja cadastrar na competição: ");
-		
+		printf("\nDigite a quantidade de equipes que deseja cadastrar na competicao: ");
+		fflush(stdin);
+		scanf("%d", &qtdEquipes);
 	
 	
 		/*equipes lancamento[qtdEquipes];
@@ -191,7 +162,7 @@ int main() {
 	       printf("\n");
 	       colocacao--;
 	    }*/
-	};
+	}while(strcmp(exit, op) != 0);
 
 
 	printf("\n\nPressione um tecla para sair \n");
