@@ -25,7 +25,7 @@ void INIT(pilhaPodio *topo)
 }
 
 
-//Verifica se o n� est� vazaio
+//Verifica se o n� est� vazio
 int IsEmpty(pilhaPodio topo){
 	return topo == NULL ? 1 : 0;
 }
@@ -65,7 +65,7 @@ aux = *topo;
 }
 
 
-//lE O VALOR DO PRIMERIO ELEMENTO DA PILHA
+//LE O VALOR DO PRIMERIO ELEMENTO DA PILHA
 int TOP(pilhaPodio topo, struct sucesso *elem)
 {
 	pilhaPodio aux;

@@ -13,11 +13,3 @@ typedef struct lancamento {
 	float tempoPropulsao;
 	int situacao;
 } lancamento;
-
-
-//struct noLista {
-//  struct lancamento dado;
-//  struct noLista *prox;
-//  };
-//
-//typedef struct noLista *listaLancamento;

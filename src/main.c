@@ -60,20 +60,14 @@ int main()
 				 //Máximo de 3 tentativas
 			 	 for(x = 0 ; x < 3; x++){
 			 	 	printf("\n----------------------------------------------------------------------\n");
-					//printf("\n %d° Tentativa de lançamento da equipe %s: ",x,equipe[i].nomeEquipe);
 					printf("\nQual a situacao do %d� lancamento da equipe %s?", x+1, equipe[i].nomeEquipe);
-
-					//printf("\nInforme a situação do %d° lançamento da equipe %s: (s = Sucesso ou f = Falha) ",x,equipe[i].nomeEquipe);
 					printf("\nInforme (s) Sucesso (f): ");
 					fflush(stdin);
 					scanf(" %c", &situacao);
 
 					switch(situacao){
 						case 's':
-							//printf("lancamento ok \n");
 							equipe[i].situacao = 1;
-
-							//printf("\nSituacao equipe %s : %d \n",equipe[i].nomeEquipe, equipe[i].situacao);
 
 							printf("\nDigite a distancia do alvo: ");
 							fflush(stdin);
@@ -115,29 +109,21 @@ int main()
 		// Percorre array de equipes
 		for(j = 0; j < qtdEquipes; j++){
 
-//			printf("entrou no for \n");
-
 			//Apenas equipe com lancamento concluido
 			if(equipe[j].situacao == 1){
-
-//				printf("\nSituacao equipe %s : %d \n",equipe[j].nomeEquipe, equipe[j].situacao);
-
+				
 				//Sempre a menor distancia do alvo
 				if(equipe[j].distanciaAlvo < menorDistancia ){
 					//TODO Criar lógica para critério de desempate
 
 					menorDistancia = equipe[j].distanciaAlvo;
-//					tempoPropulsao = equipe[j].tempoPropulsao;
 					vencedorTemp = j;
-					
 				}
 				else if (equipe[j].distanciaAlvo == menorDistancia){
 					if(equipe[j].tempoPropulsao > equipe[vencedorTemp].tempoPropulsao){
 						vencedorTemp = j;
 					}
 				}
-
-
 			}
 		}
 		campeoes[colocacao] = vencedorTemp;
@@ -154,7 +140,6 @@ int main()
 
 			x = colocacao;
 
-//			printf("\nEm %d Lugar: %s \n ",x+1, equipe[campeoes[colocacao]].nomeEquipe);
 			strcpy(podio.nomeEquipe,equipe[campeoes[colocacao]].nomeEquipe);
 			podio.distanciaAlvo = equipe[campeoes[colocacao]].distanciaAlvo;
 			podio.tempoPropulsao = equipe[campeoes[colocacao]].tempoPropulsao;
