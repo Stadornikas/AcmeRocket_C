@@ -110,17 +110,17 @@ int main()
 
 		campeoes[colocacao] = 0;
 
-		printf("entrou no while, num equipe %d \n", qtdEquipes);
+//		printf("entrou no while, num equipe %d \n", qtdEquipes);
 
 		// Percorre array de equipes
 		for(j = 0; j < qtdEquipes; j++){
 
-			printf("entrou no for \n");
+//			printf("entrou no for \n");
 
 			//Apenas equipe com lancamento concluido
 			if(equipe[j].situacao == 1){
 
-				printf("\nSituacao equipe %s : %d \n",equipe[j].nomeEquipe, equipe[j].situacao);
+//				printf("\nSituacao equipe %s : %d \n",equipe[j].nomeEquipe, equipe[j].situacao);
 
 				//Sempre a menor distancia do alvo
 				if(equipe[j].distanciaAlvo < menorDistancia ){
@@ -130,7 +130,8 @@ int main()
 //					tempoPropulsao = equipe[j].tempoPropulsao;
 					vencedorTemp = j;
 					
-				}else if (equipe[j].distanciaAlvo = menorDistancia){
+				}
+				else if (equipe[j].distanciaAlvo == menorDistancia){
 					if(equipe[j].tempoPropulsao > equipe[vencedorTemp].tempoPropulsao){
 						vencedorTemp = j;
 					}
@@ -153,7 +154,7 @@ int main()
 
 			x = colocacao;
 
-			printf("\nEm %d Lugar: %s \n ",x+1, equipe[campeoes[colocacao]].nomeEquipe);
+//			printf("\nEm %d Lugar: %s \n ",x+1, equipe[campeoes[colocacao]].nomeEquipe);
 			strcpy(podio.nomeEquipe,equipe[campeoes[colocacao]].nomeEquipe);
 			podio.distanciaAlvo = equipe[campeoes[colocacao]].distanciaAlvo;
 			podio.tempoPropulsao = equipe[campeoes[colocacao]].tempoPropulsao;
