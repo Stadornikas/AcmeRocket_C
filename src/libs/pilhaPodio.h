@@ -7,7 +7,8 @@
 #include "podio.h"
 
 /* declaracao do no */
-struct sucesso{
+struct sucesso
+{
 	struct podio dado;   //tipo do elemento da pilha
 	struct sucesso *prox;
 };
@@ -39,9 +40,11 @@ if (novo != NULL)
 	novo->dado=elem;
 	novo->prox=*topo;
 	*topo = novo;
+	
 }
 else
 	printf("pilha cheia \n");
+	
 }
 
 

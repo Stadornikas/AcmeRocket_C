@@ -1,4 +1,4 @@
-/*
+	/*
  * Tipo Lancamento
  *
  *  Created on: 02/10/2016
@@ -8,12 +8,12 @@
 /* declaracao dos registros */
 typedef struct lancamento {
 	char nomeEquipe[MAX];
-	int tentativas = 0;
+	int tentativas;
 	float distanciaAlvo;
 	float tempoPropulsao;
-	int situacao = 0;
+	int situacao;
 	struct lancamento *prox;
-} lancamento;
+} Lancamento;
 
 
 struct noLista {
