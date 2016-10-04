@@ -3,8 +3,8 @@
  */
 #define MAX 200
 
-typedef struct podio {
+typedef struct sucesso {
 	char nomeEquipe[MAX];
 	float distanciaAlvo;
 	float tempoPropulsao;
-} podio;
+} sucesso;
