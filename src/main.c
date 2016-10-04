@@ -104,7 +104,7 @@ int main()
 		 } // End for
 
 
-
+	int vencedorTemp;
     // Enquanto nao encontrar campeoes
 	while(colocacao < 3){
 
@@ -128,14 +128,18 @@ int main()
 
 					menorDistancia = equipe[j].distanciaAlvo;
 //					tempoPropulsao = equipe[j].tempoPropulsao;
-
-					campeoes[colocacao] = j;
+					vencedorTemp = j;
+					
+				}else if (equipe[j].distanciaAlvo = menorDistancia){
+					if(equipe[j].tempoPropulsao > equipe[vencedorTemp].tempoPropulsao){
+						vencedorTemp = j;
+					}
 				}
 
 
 			}
 		}
-
+		campeoes[colocacao] = vencedorTemp;
 		menorDistancia = 999999;
 
 		equipe[campeoes[colocacao]].situacao = 0;
@@ -182,3 +186,4 @@ int main()
 system("pause");
 return EXIT_SUCCESS;
 }
+
