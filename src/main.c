@@ -17,7 +17,7 @@ int main()
     INIT(&pilha);
     setlocale(LC_ALL, "Portuguese");
     int qtdEquipes = 0, maxTentativas = 0, colocacao = 0, campeoes[3];
-    int i ,x, j;
+    int i ,x, j, qtdMinEquipe;
     float menorDistancia = 9999999;
     char situacao;
 
@@ -60,8 +60,8 @@ int main()
 				 //MÃ¡ximo de 3 tentativas
 			 	 for(x = 0 ; x < 3; x++){
 			 	 	printf("\n----------------------------------------------------------------------\n");
-					printf("\nQual a situacao do %dº lancamento da equipe %s?", x+1, equipe[i].nomeEquipe);
-					printf("\nInforme (s) Sucesso (f): ");
+					printf("\nQual a situacao do %d lancamento da equipe %s?", x+1, equipe[i].nomeEquipe);
+					printf("\nInforme (s) Sucesso (f) Falha: ");
 					fflush(stdin);
 					scanf(" %c", &situacao);
 
@@ -99,8 +99,12 @@ int main()
 
 
 	int vencedorTemp;
+
+
+	qtdMinEquipe = (qtdEquipes > 3)? 3 : qtdEquipes;
+	menorDistancia = 999999;
     // Enquanto nao encontrar campeoes
-	while(colocacao < 3){
+	while(colocacao < qtdMinEquipe){
 
 		campeoes[colocacao] = 0;
 
@@ -134,11 +138,11 @@ int main()
 		colocacao++;
 	}
 
+x = colocacao;
+
+	for(colocacao = 0; colocacao < x; colocacao ++){
 
 
-	for(colocacao = 0; colocacao < 3; colocacao ++){
-
-			x = colocacao;
 
 			strcpy(podio.nomeEquipe,equipe[campeoes[colocacao]].nomeEquipe);
 			podio.distanciaAlvo = equipe[campeoes[colocacao]].distanciaAlvo;
@@ -151,7 +155,7 @@ int main()
 
     printf("\n######################################################");
     printf("\n#                                                    #");
-    printf("\n#              RESULTADOS DA COMPETIÇÃO              #");
+    printf("\n#              RESULTADOS DA COMPETICAO              #");
     printf("\n#                                                    #");
     printf("\n######################################################\n");
 
@@ -159,8 +163,8 @@ int main()
     	POP(&pilha, &aux);
        	printf("\nEm %d Lugar: ",colocacao);
     	printf("\nNome da Equipe: %s",aux.nomeEquipe);
-       	printf("\nDistancia do alvo: %f \n",aux.distanciaAlvo);
-       	printf("\nTempo de propulsao: %f \n",aux.tempoPropulsao);
+       	printf("\nDistancia do alvo: %0.2f \n",aux.distanciaAlvo);
+       	printf("\nTempo de propulsao: %0.2f \n",aux.tempoPropulsao);
        	printf("\n");
        	printf("\n");
        	colocacao--;
@@ -172,4 +176,3 @@ int main()
 system("pause");
 return EXIT_SUCCESS;
 }
-
