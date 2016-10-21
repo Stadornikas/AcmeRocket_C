@@ -23,20 +23,20 @@ int IsEmptyLancamento(tipofilaLancamento inicio,tipofilaLancamento fim)
 
 void ENQUEUE(tipofilaLancamento *inicio,tipofilaLancamento *fim, struct lancamento v)
 {
-	tipofilaLancamento aux;
-	aux=(tipofilaLancamento) malloc (sizeof(struct noLancamento));
-	if (aux!=NULL)
+	tipofilaLancamento novo;
+	novo =(tipofilaLancamento) malloc (sizeof(struct noLancamento));
+	if (novo!=NULL)
 		{
-		aux->dado=v;
-		aux->prox=NULL;
+		novo->dado=v;
+		novo->prox=NULL;
 		if (IsEmptyLancamento(*inicio,*fim)){
-		  *inicio=aux;
+		  *inicio=novo;
 		}
 		else
 		{
-		  (*fim)->prox=aux;
+		  (*fim)->prox=novo;
 		}
-	   *fim=aux;
+	   *fim=novo;
 	}
 	else
 		printf("overflow \n");
@@ -62,6 +62,28 @@ int DEQUEUE (tipofilaLancamento *inicio,tipofilaLancamento *fim, struct lancamen
 	{
 		 printf("fila vazia \n ");
 		 return(0);
+	}
+}
+
+
+int ORDER(tipofilaLancamento *inicio,tipofilaLancamento *fim){
+	
+	tipofilaLancamento aux, aux2, aux3;
+	aux = *inicio;
+	
+	if(!IsEmptyLancamento(*inicio,*fim)){
+		
+		while(aux != NULL){
+			
+			if((*inicio)->dado.distanciaAlvo < (*inicio)->prox->dado.distanciaAlvo ){
+				aux3 = (*inicio)->prox;
+				aux2 = (*inicio)->prox->prox;
+				(*inicio)->prox = (*inicio)->prox->prox->prox;
+				aux2 = aux3;
+			}
+			
+			aux = aux->prox;
+		}
 	}
 }
 

@@ -14,10 +14,11 @@ int main()
     sucesso podio, aux;
     INIT(&pilha);
 
-    //definicoes de lista
-    tipofilaLancamento inicio,fim, percorre;
-    lancamento equipes;
-    INITLANC(&inicio,&fim);
+    //definicoes de listas
+    tipofilaLancamento iniLancamento,fimLancamento,  iniSucesso, fimSucesso, percorre, filaSucesso;
+    lancamento equipes, campeao;
+    INITLANC(&iniLancamento,&fimLancamento);
+	INITLANC(&iniSucesso,&fimSucesso);
 
     //definicoes de variaveis
     int qtdEquipes = 0, maxTentativas = 0, colocacao = 0, campeoes[3], auxEquipes = 0;
@@ -52,7 +53,7 @@ int main()
 		else
 		{
 			auxEquipes = 1;
-			ENQUEUE(&inicio,&fim, equipes);
+			ENQUEUE(&iniLancamento,&fimLancamento, equipes);
 			printf("\n Equipe %s cadastrada com sucesso \n",equipes.nomeEquipe);
 		}
 
@@ -61,12 +62,12 @@ int main()
 		scanf("%c",&continuar);
 
     }while(continuar == 's');
+	
 
-  	percorre = inicio;
+  	percorre = iniLancamento;
 
     //Percorre a lista de equipes equanto conter itens na lista
-     while(percorre->prox != NULL)
-     {
+    while(percorre != NULL){
     	 //repete ate que todas as equipes tenham participado
 		   while(percorre->dado.tentativas <= 2 && percorre->dado.situacao == 0)
 		   {
@@ -106,8 +107,11 @@ int main()
 
 						} // END CASE
 
-					   // Elimina demais tentativas em caso de sucesso ou desclassificacao
-						if (percorre->dado.situacao == 1 || percorre->dado.situacao == -1) break;
+					   // Insere na fila de sucesso as equipes com status 1
+						if (percorre->dado.situacao == 1){
+							ENQUEUE(&iniSucesso,&fimSucesso, percorre->dado);
+							break;	
+						}
 				 } //END FOR
 
 		   } //END WHILE
@@ -117,65 +121,65 @@ int main()
 
      } // End While
 
-     /*
-
-  int vencedorTemp;
 
 
-  qtdMinEquipe = (qtdEquipes > 3)? 3 : qtdEquipes;
-  menorDistancia = 999999;
+
+ORDER(&iniSucesso,&fimSucesso);
+
+
+
     // Enquanto nao encontrar campeoes
-  while(colocacao < qtdMinEquipe)
+  while(colocacao < 3)
   {
-
-		campeoes[colocacao] = 0;
-
-		//printf("entrou no while, num equipe %d \n", qtdEquipes);
-
-		// Percorre array de equipes
-		for(j = 0; j < qtdEquipes; j++)
+		percorre = iniSucesso;
+				
+		// Percorre lista de equipes que obtiveram sucesso
+		while(percorre != NULL)
 		{
-
-			  //Apenas equipe com lancamento concluido
-			  if(equipes.situacao == 1)
-			  {
-
-				//Sempre a menor distancia do alvo
-					if(equipes.distanciaAlvo < menorDistancia )
-					{
-						  //TODO Criar lógica para critério de desempate
-
-						  menorDistancia = equipes.distanciaAlvo;
-						  vencedorTemp = j;
-					}
-					else if (equipes.distanciaAlvo == menorDistancia)
-					{
-						  if(equipes.tempoPropulsao > equipes.tempoPropulsao)
-						  {
-							vencedorTemp = j;
-						  }
-					}
-			  }
+				//Pega sempre a menor distancia do alvo
+				if(percorre->dado.distanciaAlvo < menorDistancia )
+				{
+		            menorDistancia = percorre->dado.distanciaAlvo;
+				}
+				else if (percorre->dado.distanciaAlvo == menorDistancia)
+				{
+					//Criterio de dempate = maior tempo de propulsao
+				   if(percorre->dado.tempoPropulsao > percorre->dado.tempoPropulsao)
+				   {
+//						vencedorTemp = j;
+						menorDistancia = percorre->dado.distanciaAlvo;
+				   }
+				}
+					
+			//avanca item da lista para proxima iteracao
+		    percorre = percorre->prox;		
+			  
 		}// end for
-
-		campeoes[colocacao] = vencedorTemp;
+		
+		percorre = iniSucesso;
+		
+		// Percorre lista de equipes que obtiveram sucesso
+		while(percorre != NULL)
+		{
+			if(percorre->dado.distanciaAlvo == menorDistancia )
+			{
+				DEQUEUE(&iniSucesso,&fimSucesso,&campeao);
+				strcpy(podio.nomeEquipe,percorre->dado.nomeEquipe);
+			    podio.distanciaAlvo = percorre->dado.distanciaAlvo;
+			    podio.tempoPropulsao = percorre->dado.tempoPropulsao;
+			    PUSH(&pilha, podio);
+				
+			}
+			//avanca item da lista para proxima iteracao
+			percorre = percorre->prox;
+		}
+	
 		menorDistancia = 999999;
-
-		equipes.situacao = 0;
 
 		colocacao++;
 
   }//end while
 
-x = colocacao;
-
-  for(colocacao = 0; colocacao < x; colocacao ++)
-  {
-      strcpy(podio.nomeEquipe,equipes.nomeEquipe);
-      podio.distanciaAlvo = equipes.distanciaAlvo;
-      podio.tempoPropulsao = equipes.tempoPropulsao;
-      PUSH(&pilha, podio);
-  }
 
 
     printf("\n######################################################");
@@ -196,7 +200,7 @@ x = colocacao;
       colocacao--;
   }
 
-*/
+
     printf("\n\nPressione um tecla para sair \n");
 
 	system("pause");
