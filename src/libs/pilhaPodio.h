@@ -1,9 +1,3 @@
-/*
- * pilhaPodio.h
- *
- *  Created on: 02/10/2016
- *      Author: root
- */
 #include "sucesso.h"
 
 /* declaracao do no */

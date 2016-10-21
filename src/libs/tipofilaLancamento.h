@@ -1,14 +1,5 @@
 #include "lancamento.h"
 
-
-typedef struct lancamento {
-	char nomeEquipe[MAX];
-	int tentativas;
-	float distanciaAlvo;
-	float tempoPropulsao;
-	int situacao;
-} lancamento;
-
 struct noLancamento { 
        struct lancamento dado;
        struct noLancamento *prox;
