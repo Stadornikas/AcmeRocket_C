@@ -7,19 +7,23 @@
 
 int main()
 {
+	setlocale(LC_ALL, "Portuguese");
+
+	//definicoes da pilha
     pilhaPodio pilha;
     sucesso podio, aux;
     INIT(&pilha);
 
+    //definicoes de lista
     tipofilaLancamento inicio,fim, percorre;
-    struct lancamento equipes;
+    lancamento equipes;
     INITLANC(&inicio,&fim);
 
-    setlocale(LC_ALL, "Portuguese");
+    //definicoes de variaveis
     int qtdEquipes = 0, maxTentativas = 0, colocacao = 0, campeoes[3], auxEquipes = 0;
-    int i ,x, j, qtdMinEquipe;
+    int x, j, qtdMinEquipe;
     float menorDistancia = 9999999;
-    char situacao;
+    char situacao, continuar = 's';
 
 
 	  printf("  ____                         _           _             \n");
@@ -37,36 +41,40 @@ int main()
 		equipes.tentativas = 0;
 		equipes.situacao = 0;
 
-		printf("\n Digite nome da equipe ou 0 para parar: ");
+		printf("\n Digite nome da proxima equipe a ser cadastrada 2:");
 		fflush(stdin);
-		fgets(equipes.nomeEquipe);
+		fgets(equipes.nomeEquipe, MAX, stdin);
 
-		if(strcmp(equipes.nomeEquipe, "0") == 0)
+		if(strcmp(equipes.nomeEquipe, "") == 0 || strlen(equipes.nomeEquipe)==0)
 		{
-			auxEquipes = 0;
+			printf("\n Digite um nome valido \n");
 		}
 		else
 		{
 			auxEquipes = 1;
-			ENQUEUE(&inicio,&fim,equipes);
-			printf("\n Cadastrado com sucesso\n");
+			ENQUEUE(&inicio,&fim, equipes);
+			printf("\n Equipe %s cadastrada com sucesso \n",equipes.nomeEquipe);
 		}
 
-    }while(auxEquipes != 0);
+		printf("\n Deseja cadadastrar outra equipe?(s/n):");
+		fflush(stdin);
+		scanf("%c",&continuar);
 
+    }while(continuar == 's');
 
-    //Percorre o array de equipes
-     while(PROXIMO(&inicio) == 1)
+  	percorre = inicio;
+
+    //Percorre a lista de equipes equanto conter itens na lista
+     while(percorre->prox != NULL)
      {
-       
-		   while(equipes.tentativas <= 2 && equipes.situacao == 0)
+    	 //repete ate que todas as equipes tenham participado
+		   while(percorre->dado.tentativas <= 2 && percorre->dado.situacao == 0)
 		   {
-
-				 //Máximo de 3 tentativas
+				 //Máximo de 3 tentativas por equipe
 				 for(x = 0 ; x < 3; x++)
 				 {
 					  printf("\n----------------------------------------------------------------------\n");
-					  printf("\nQual a situacao do %d lancamento da equipes %s?", x+1, equipes.nomeEquipe);
+					  printf("\nQual a situacao do %d lancamento da equipes %s?", x+1, percorre->dado.nomeEquipe);
 					  printf("\nInforme (s) Sucesso (f) Falha: ");
 					  fflush(stdin);
 					  scanf(" %c", &situacao);
@@ -74,37 +82,42 @@ int main()
 					  switch(situacao)
 					  {
 							case 's':
-								  equipes.situacao = 1;
+								 percorre->dado.situacao = 1;
 
 								  printf("\nDigite a distancia do alvo: ");
 								  fflush(stdin);
-								  scanf("%f", &equipes.distanciaAlvo);
+								  scanf("%f", &percorre->dado.distanciaAlvo);
 
 								  printf("Digite o tempo de propulsao: ");
 								  fflush(stdin);
-								  scanf("%f", &equipes.tempoPropulsao);
+								  scanf("%f", &percorre->dado.tempoPropulsao);
 
-								  equipes.tentativas++;
+								  percorre->dado.tentativas++;
 								  break;
 
 							case 'f':
 								  printf("Lancamento falhou \n");
-								  equipes.tentativas++;
-								  if(equipes.tentativas > 2)
+								  percorre->dado.tentativas++;
+								  if(percorre->dado.tentativas > 2)
 								  {
-									  equipes.situacao = -1;
+									  percorre->dado.situacao = -1;
 								  }
 								  break;
 
 						} // END CASE
 
-						if (equipes.situacao == 1 || equipes.situacao == -1) break;
+					   // Elimina demais tentativas em caso de sucesso ou desclassificacao
+						if (percorre->dado.situacao == 1 || percorre->dado.situacao == -1) break;
 				 } //END FOR
 
 		   } //END WHILE
 
-     } // End for
+		   //avanca item da lista para proxima iteracao
+		   percorre = percorre->prox;
 
+     } // End While
+
+     /*
 
   int vencedorTemp;
 
@@ -183,7 +196,7 @@ x = colocacao;
       colocacao--;
   }
 
-
+*/
     printf("\n\nPressione um tecla para sair \n");
 
 	system("pause");

@@ -74,14 +74,14 @@ int TOP(pilhaPodio topo, struct sucesso *elem)
 
 }
 
-int SHOW(pilhaPodio topo, int cont){
-	int aux, val;
-	if(topo->prox != NULL){
-		printf("%d item da pilha: %d", cont, val) ;
-		SHOW(topo->prox, cont + 1);
-	}
-	return 0;
-}
+//int SHOW(pilhaPodio topo, int cont){
+//	int  val;
+//	if(topo->prox != NULL){
+//		printf("%d item da pilha: %d", cont, val) ;
+//		SHOW(topo->prox, cont + 1);
+//	}
+//	return 0;
+//}
 
 
 
