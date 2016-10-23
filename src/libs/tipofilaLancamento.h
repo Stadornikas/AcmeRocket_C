@@ -68,17 +68,27 @@ int DEQUEUE (tipofilaLancamento *inicio,tipofilaLancamento *fim, struct lancamen
 
 int ORDER(tipofilaLancamento *inicio,tipofilaLancamento *fim){
 	
-	tipofilaLancamento aux, aux2, aux3;
+	tipofilaLancamento aux, aux2, aux3, auxProx;
+	aux = (tipofilaLancamento) malloc(sizeof(struct lancamento));
+	aux2 = (tipofilaLancamento) malloc(sizeof(struct lancamento));
+	aux3 = (tipofilaLancamento) malloc(sizeof(struct lancamento));
+	printf("Malloc /n");
 	aux = *inicio;
+	printf("Atrib /n");
 	
 	if(!IsEmptyLancamento(*inicio,*fim)){
 		
 		while(aux != NULL){
-			
-			if((*inicio)->dado.distanciaAlvo < (*inicio)->prox->dado.distanciaAlvo ){
+			printf("Antes if /n");
+			auxProx = (*inicio)->prox;
+			if((*inicio)->dado.distanciaAlvo < auxProx->dado.distanciaAlvo ){
+				printf("Depois If /n");
 				aux3 = (*inicio)->prox;
+				printf("Atrib aux 3 /n");
 				aux2 = (*inicio)->prox->prox;
+				printf("Atrib aux 2 /n");
 				(*inicio)->prox = (*inicio)->prox->prox->prox;
+				printf("Suruba de prox /n");
 				aux2 = aux3;
 			}
 			

@@ -42,7 +42,7 @@ int main()
 		equipes.tentativas = 0;
 		equipes.situacao = 0;
 
-		printf("\n Digite nome da proxima equipe a ser cadastrada 2:");
+		printf("\n Digite nome da equipe a ser cadastrada: ");
 		fflush(stdin);
 		fgets(equipes.nomeEquipe, MAX, stdin);
 
@@ -125,9 +125,34 @@ int main()
 
 
 ORDER(&iniSucesso,&fimSucesso);
-
-
-
+//lancamento auch, auch2, auch3;
+//while(iniSucesso->prox != NULL){
+//	printf("Antes if ");
+//	if(iniSucesso->dado.distanciaAlvo > auch.distanciaAlvo){
+//		auch = iniSucesso->dado;
+//		DEQUEUE(&iniSucesso, &fimSucesso, &iniSucesso->dado);
+//		printf("%d \n", auch.distanciaAlvo);
+//		puts(auch.nomeEquipe);
+//		printf("%d \n", auch.situacao);
+//		printf("%f \n", auch.tempoPropulsao);
+//	}
+//	else if(iniSucesso->dado.distanciaAlvo > auch2.distanciaAlvo){
+//		auch2 = iniSucesso->dado;
+//		DEQUEUE(&iniSucesso, &fimSucesso, &iniSucesso->dado);
+//		printf("dequeue 3 ");
+//	}
+//	else if(iniSucesso->dado.distanciaAlvo > auch3.distanciaAlvo){
+//		printf("terceiro if");
+//		auch3 = iniSucesso->dado;
+//		DEQUEUE(&iniSucesso, &fimSucesso, &iniSucesso->dado);
+//		printf("dequeue 2 ");
+//	}
+//
+//	iniSucesso = iniSucesso->prox;
+//	printf("OK");
+//}
+//
+//printf("ok");
     // Enquanto nao encontrar campeoes
   while(colocacao < 3)
   {
