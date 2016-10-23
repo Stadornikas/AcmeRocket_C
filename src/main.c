@@ -15,7 +15,7 @@ int main()
     INIT(&pilha);
 
     //definicoes de listas
-    tipofilaLancamento iniLancamento,fimLancamento,  iniSucesso, fimSucesso, percorre, filaSucesso;
+    tipofilaLancamento iniLancamento,fimLancamento,  iniSucesso, fimSucesso, percorre, filaSucesso, filaPodIni, filaPodFim;
     lancamento equipes, campeao;
     INITLANC(&iniLancamento,&fimLancamento);
 	INITLANC(&iniSucesso,&fimSucesso);
@@ -124,39 +124,37 @@ int main()
 
 
 
-ORDER(&iniSucesso,&fimSucesso);
-//lancamento auch, auch2, auch3;
-//while(iniSucesso->prox != NULL){
-//	printf("Antes if ");
-//	if(iniSucesso->dado.distanciaAlvo > auch.distanciaAlvo){
-//		auch = iniSucesso->dado;
-//		DEQUEUE(&iniSucesso, &fimSucesso, &iniSucesso->dado);
-//		printf("%d \n", auch.distanciaAlvo);
-//		puts(auch.nomeEquipe);
-//		printf("%d \n", auch.situacao);
-//		printf("%f \n", auch.tempoPropulsao);
-//	}
-//	else if(iniSucesso->dado.distanciaAlvo > auch2.distanciaAlvo){
-//		auch2 = iniSucesso->dado;
-//		DEQUEUE(&iniSucesso, &fimSucesso, &iniSucesso->dado);
-//		printf("dequeue 3 ");
-//	}
-//	else if(iniSucesso->dado.distanciaAlvo > auch3.distanciaAlvo){
-//		printf("terceiro if");
-//		auch3 = iniSucesso->dado;
-//		DEQUEUE(&iniSucesso, &fimSucesso, &iniSucesso->dado);
-//		printf("dequeue 2 ");
-//	}
-//
-//	iniSucesso = iniSucesso->prox;
-//	printf("OK");
-//}
-//
-//printf("ok");
+//ORDER(&iniSucesso,&fimSucesso);
+lancamento auch, auch2, auch3;
+INITLANC(&filaPodIni, &filaPodFim);
+
+while(iniSucesso != NULL){
+	if(iniSucesso->dado.distanciaAlvo > auch.distanciaAlvo){
+		auch = iniSucesso->dado;
+		DEQUEUE(&iniSucesso, &fimSucesso, &equipes);
+	}
+	else if(iniSucesso->dado.distanciaAlvo > auch2.distanciaAlvo){
+		auch2 = iniSucesso->dado;
+		DEQUEUE(&iniSucesso, &fimSucesso, &equipes);
+	}
+	else if(iniSucesso->dado.distanciaAlvo > auch3.distanciaAlvo){
+		auch3 = iniSucesso->dado;
+		DEQUEUE(&iniSucesso, &fimSucesso, &equipes);
+	}
+
+	iniSucesso = iniSucesso->prox;
+}
+
+printf("enqueue");
+ENQUEUE(&filaPodIni, &filaPodFim, auch);
+ENQUEUE(&filaPodIni, &filaPodFim, auch2);
+ENQUEUE(&filaPodIni, &filaPodFim, auch3);
+
+printf("OK");
     // Enquanto nao encontrar campeoes
   while(colocacao < 3)
   {
-		percorre = iniSucesso;
+		percorre = filaPodIni;
 				
 		// Percorre lista de equipes que obtiveram sucesso
 		while(percorre != NULL)
@@ -181,32 +179,30 @@ ORDER(&iniSucesso,&fimSucesso);
 			  
 		}// end for
 		
-		percorre = iniSucesso;
+		percorre = filaPodIni;
 		
 		// Percorre lista de equipes que obtiveram sucesso
 		while(percorre != NULL)
 		{
 			if(percorre->dado.distanciaAlvo == menorDistancia )
 			{
-				DEQUEUE(&iniSucesso,&fimSucesso,&campeao);
+				DEQUEUE(&filaPodIni,&filaPodFim,&campeao);
 				strcpy(podio.nomeEquipe,percorre->dado.nomeEquipe);
 			    podio.distanciaAlvo = percorre->dado.distanciaAlvo;
 			    podio.tempoPropulsao = percorre->dado.tempoPropulsao;
 			    PUSH(&pilha, podio);
-				
 			}
 			//avanca item da lista para proxima iteracao
 			percorre = percorre->prox;
 		}
-	
 		menorDistancia = 999999;
 
 		colocacao++;
 
+printf("lala");
   }//end while
 
-
-
+	printf("TESTEEEEEEEEEEEE");
     printf("\n######################################################");
     printf("\n#                                                    #");
     printf("\n#              RESULTADOS DA COMPETICAO              #");
