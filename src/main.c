@@ -20,7 +20,7 @@ int main() {
     INITLANC(&iniSucesso, &fimSucesso);
 
     //definicoes de variaveis
-    int x = 0, j = 0, contadorSucesso = 0, colocacao = 0, minEquipe = 0;
+    int x = 0, j = 0, contadorSucesso = 0, colocacao = 0, minEquipe = 0, ctrl = 0;
     float menorDistancia = 9999999, maiorTempoPropulcao = 0;
     char situacao, continuar = 's';
 
@@ -42,7 +42,7 @@ int main() {
         equipes.tentativas = 0;
         equipes.situacao = 0;
 
-        printf("\n Digite nome da proxima equipe a ser cadastrada:");
+        printf("\n Digite nome da equipe a ser cadastrada:");
         fflush(stdin);
         fgets(equipes.nomeEquipe, MAX, stdin);
 
@@ -152,10 +152,14 @@ int main() {
 
             //Pega sempre a menor distancia do alvo
             if (lancamentoOK.distanciaAlvo < menorDistancia) {
-
+            	//Se encontrar algum menor que a atual menorDistancia o antigo campeao volta para a fila
+				if(ctrl != 0){
+					ENQUEUE(&iniSucesso, &fimSucesso, campeao);
+				}
                 menorDistancia = lancamentoOK.distanciaAlvo;
                 maiorTempoPropulcao = lancamentoOK.tempoPropulsao;
                 campeao = lancamentoOK;
+                ctrl++;
                  
             } else if (lancamentoOK.distanciaAlvo == menorDistancia) {
                 //Criterio de dempate = maior tempo de propulsao
@@ -188,6 +192,7 @@ int main() {
         
         menorDistancia = 999999;
         colocacao++;
+        ctrl = 0;
     }//end while
 
 
