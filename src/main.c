@@ -14,14 +14,13 @@ int main() {
     INIT(&pilha);
 
     //definicoes de listas
-    tipofilaLancamento iniLancamento, fimLancamento, iniSucesso, fimSucesso, percorre, filaSucesso;
-    lancamento equipes, campeao;
+    tipofilaLancamento iniLancamento, fimLancamento, iniSucesso, fimSucesso, percorre;
+    lancamento equipes, campeao, lancamentoOK;
     INITLANC(&iniLancamento, &fimLancamento);
     INITLANC(&iniSucesso, &fimSucesso);
 
     //definicoes de variaveis
-    int qtdEquipes = 0, maxTentativas = 0, colocacao = 0, campeoes[3];
-    int x = 0 , j = 0, contadorSucesso = 0;
+    int x = 0, j = 0, contadorSucesso = 0, colocacao = 0, minEquipe = 0;
     float menorDistancia = 9999999, maiorTempoPropulcao = 0;
     char situacao, continuar = 's';
 
@@ -33,7 +32,9 @@ int main() {
     printf(" | |_) |  __/ | | | | |  \\ V /| | | | | (_| | (_) |     \n");
     printf(" |____/ \\___|_| |_| |_|   \\_/ |_|_| |_|\\__,_|\\___/   \n");
     printf("               AO SISTEMA ACME ROCKET\n\n\n");
-
+    printf(" ");
+    printf("\n Cadastre 3 ou mais equipes para participarem da competição SpaceCup");
+    printf("\n ");
 
     //Pega nomes das equipes
     do {
@@ -41,7 +42,7 @@ int main() {
         equipes.tentativas = 0;
         equipes.situacao = 0;
 
-        printf("\n Digite nome da proxima equipe a ser cadastrada 2:");
+        printf("\n Digite nome da proxima equipe a ser cadastrada:");
         fflush(stdin);
         fgets(equipes.nomeEquipe, MAX, stdin);
 
@@ -49,6 +50,7 @@ int main() {
             printf("\n Digite um nome valido \n");
         } else {
             ENQUEUE(&iniLancamento, &fimLancamento, equipes);
+            minEquipe++;
             printf("\n Equipe %s cadastrada com sucesso \n", equipes.nomeEquipe);
         }
 
@@ -56,10 +58,13 @@ int main() {
         fflush(stdin);
         scanf("%c", &continuar);
 
-    } while (continuar == 's');
+        while (getchar() != '\n'); //Limpa o buffer de leitura
+
+    } while (continuar == 's' || minEquipe < 3);
 
 
     percorre = iniLancamento;
+
 
     //Percorre a fila de equipes equanto conter itens na lista
     while (percorre != NULL) {
@@ -114,57 +119,74 @@ int main() {
     } // End While
 
 
+    printf("\n######################################################");
+    printf("\n#                                                    #");
+    printf("\n#              EQUIPES CLASSIFICADAS                 #");
+    printf("\n#                                                    #");
+    printf("\n######################################################\n");
 
+    while (getchar() != '\n'); //Limpa o buffer de leitura
 
+    percorre = iniSucesso;
+    
+    while (percorre != NULL) {
+        printf("\n Nome da equipe: %s ", percorre->dado.nomeEquipe);
+        percorre = percorre->prox;
+    }
 
+    printf("\n Pressione ENTER para visualizar os campeoes");
+    scanf("%c", &continuar);
+
+    
+    percorre = COPY(iniSucesso);
+
+    
     // Enquanto nao encontrar campeoes
     while (colocacao < 3) {
-    	
+
         // Percorre fila de equipes que obtiveram sucesso
-       for(j = 0 ; j < contadorSucesso ; j++){
-       	    
-			DEQUEUE(&iniSucesso, &fimSucesso,&campeao);
-       	    
+        for (j = 0; j < contadorSucesso; j++) {
+
+            //Retira o lamcamento da fila para ser comparado com os demais lancamentos
+            DEQUEUE(&iniSucesso, &fimSucesso, &lancamentoOK);
+
             //Pega sempre a menor distancia do alvo
-            if (campeao.distanciaAlvo < menorDistancia) {
-                menorDistancia = campeao.distanciaAlvo;
-                
-                strcpy(podio.nomeEquipe, percorre->dado.nomeEquipe);
-                podio.distanciaAlvo = percorre->dado.distanciaAlvo;
-                podio.tempoPropulsao = percorre->dado.tempoPropulsao;
-                PUSH(&pilha, podio);
-                
-            } else if (campeao.distanciaAlvo == menorDistancia) {
+            if (lancamentoOK.distanciaAlvo < menorDistancia) {
+
+                menorDistancia = lancamentoOK.distanciaAlvo;
+                maiorTempoPropulcao = lancamentoOK.tempoPropulsao;
+                campeao = lancamentoOK;
+                 
+            } else if (lancamentoOK.distanciaAlvo == menorDistancia) {
                 //Criterio de dempate = maior tempo de propulsao
-                if (campeao.tempoPropulsao > maiorTempoPropulcao) {
-                    //						vencedorTemp = j;
-                    maiorTempoPropulcao = campeao.tempoPropulsao;
+                if (lancamentoOK.tempoPropulsao > maiorTempoPropulcao) {
+                    maiorTempoPropulcao = lancamentoOK.tempoPropulsao;
+                    campeao = lancamentoOK;
                 }
-            } 
-
-            //avanca item da lista para proxima iteracao
-            percorre = percorre->prox;
-
-        }// end for
-
-        percorre = iniSucesso;
-/*
-        // Percorre lista de equipes que obtiveram sucesso
-        while (percorre != NULL) {
-            if (percorre->dado.distanciaAlvo == menorDistancia) {
-                DEQUEUE(&iniSucesso, &fimSucesso, &campeao);
-                strcpy(podio.nomeEquipe, percorre->dado.nomeEquipe);
-                podio.distanciaAlvo = percorre->dado.distanciaAlvo;
-                podio.tempoPropulsao = percorre->dado.tempoPropulsao;
-                PUSH(&pilha, podio);
-
+            } else {
+                //Caso nao seja menor volta para a fila
+                ENQUEUE(&iniSucesso, &fimSucesso, lancamentoOK);
             }
-            //avanca item da lista para proxima iteracao
+           
+            
+        }// end for
+        
+        
+       
+        while (percorre != NULL) {
+               
+            if (percorre->dado.distanciaAlvo == campeao.distanciaAlvo && percorre->dado.tempoPropulsao == campeao.tempoPropulsao) {
+                strcpy(podio.nomeEquipe, campeao.nomeEquipe);
+                podio.distanciaAlvo = campeao.distanciaAlvo;
+                podio.tempoPropulsao = campeao.tempoPropulsao;
+                PUSH(&pilha, podio);
+            }
             percorre = percorre->prox;
         }
-*/
+        
+        percorre = COPY(iniSucesso);
+        
         menorDistancia = 999999;
-
         colocacao++;
     }//end while
 
