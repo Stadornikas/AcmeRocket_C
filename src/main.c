@@ -164,9 +164,13 @@ int main() {
             } else if (lancamentoOK.distanciaAlvo == menorDistancia) {
                 //Criterio de dempate = maior tempo de propulsao
                 if (lancamentoOK.tempoPropulsao > maiorTempoPropulcao) {
+                	ENQUEUE(&iniSucesso, &fimSucesso, campeao);
                     maiorTempoPropulcao = lancamentoOK.tempoPropulsao;
                     campeao = lancamentoOK;
                 }
+                else{
+                	ENQUEUE(&iniSucesso, &fimSucesso, lancamentoOK);
+				}
             } else {
                 //Caso nao seja menor volta para a fila
                 ENQUEUE(&iniSucesso, &fimSucesso, lancamentoOK);
@@ -191,6 +195,7 @@ int main() {
         percorre = COPY(iniSucesso);
         
         menorDistancia = 999999;
+        maiorTempoPropulcao = 0; 
         colocacao++;
         ctrl = 0;
     }//end while
